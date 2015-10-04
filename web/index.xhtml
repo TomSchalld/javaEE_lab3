@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <h:outputLabel value="Name " style="font-weight:bold" />
+                <h:inputText p:placeholder="name" value="#{myBean.name}" />
+                <h:outputLabel  value="Age: " style="font-weight:bold" />
+                <h:inputText p:placeholder="20" p:type="number" value="#{myBean.age}" />
+                <h:outputLabel  value="Email: " style="font-weight:bold" />
+                <h:inputText p:type="email" p:placeholder="lala@lala.com" value="#{myBean.email}" >
+                    <f:validator validatorId="emailValidator" />
+                </h:inputText>
+                <h:commandButton action="#{myBean.insertPeople}" value="submit" />
+            </h:form>
+            <h:form>
+                <h:commandButton action="#{myBean.listBy(true)}" value="get list by name" />
+                <h:commandButton action="#{myBean.listBy(false)}" value="get list by age" />
+            </h:form>
+            <h:dataTable value="#{myBean.listPeople}" var="item">
+                <h:column>#{item.id}</h:column>
+                <h:column>#{item.name}</h:column>
+                <h:column>#{item.age}</h:column>
+                <h:column>#{item.email}</h:column>
+                <h:column>
+                    <h:form>
+                       <h:commandButton action="#{myBean.prepareUpdate(item)}" value="prepare update" />
+                       <h:commandButton action="#{myBean.deletePeople(item)}" value="delete" />
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+        </f:view>
+    </h:body>
+</html>
+
